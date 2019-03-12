@@ -1,0 +1,6 @@
+{
+    "require": {
+        "mongodb/mongodb": "^1.4",
+        "mikecao/flight": "^1.3"
+    }
+}

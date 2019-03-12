@@ -1,2 +1,5 @@
 <?
-require_once "vendor/flight-master/flight/Flight.php";
+require 'vendor/autoload.php';
+require 'class/Mongo.php';
+
+Mongo::$host = "mongodb://mongodb";

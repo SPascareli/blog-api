@@ -1,4 +1,7 @@
 FROM php:7.2-apache-stretch
 
+RUN pecl install mongodb
+
 RUN cp /etc/apache2/mods-available/rewrite.load /etc/apache2/mods-enabled/ \
-    && echo "short_open_tag = On" > /usr/local/etc/php/conf.d/short-open-tag.ini
+    && echo "short_open_tag = On" > /usr/local/etc/php/conf.d/short-open-tag.ini \
+    && echo "extension=mongodb.so" >> /usr/local/etc/php/conf.d/extensions.ini
