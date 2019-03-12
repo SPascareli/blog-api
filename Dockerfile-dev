@@ -1,0 +1,4 @@
+FROM php:7.2-apache-stretch
+
+RUN cp /etc/apache2/mods-available/rewrite.load /etc/apache2/mods-enabled/ \
+    && echo "short_open_tag = On" > /usr/local/etc/php/conf.d/short-open-tag.ini
