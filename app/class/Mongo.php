@@ -4,7 +4,7 @@ class Mongo {
 
     private static $instance;
 
-    public function instance() {
+    public static function instance() {
         if (!self::$instance) {
             self::$instance = new MongoDB\Client(self::$host);
         }
