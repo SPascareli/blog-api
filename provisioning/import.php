@@ -36,5 +36,13 @@ if ($collExists) {
 
 echo "Provisioning $collection collection...";
 
+// map the 'id' field to the mongo record '_id' to avoid repetitions in the api
+$data = array_map(function($rec) {
+    $rec->_id = $rec->id;
+    unset($rec->id);
+
+    return $rec;
+}, $data);
+
 // insert the data in the db
 $db->{$collection}->insertMany($data);
