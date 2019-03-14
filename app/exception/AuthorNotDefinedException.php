@@ -1,0 +1,4 @@
+<?
+class AuthorNotDefinedException extends Exception
+{
+}

@@ -1,5 +1,12 @@
 <?
 require 'vendor/autoload.php';
-require 'class/Mongo.php';
+
+// autoload classses
+Flight::path([
+    'class/',
+    'controller/',
+    'model/',
+    'exception/'
+]);
 
 Mongo::$host = "mongodb://mongodb";
