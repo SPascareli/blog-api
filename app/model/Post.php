@@ -8,9 +8,8 @@ class Post {
         $comments = Mongo::instance()->blog->comments;
         
         if ($id) {
-            $result = [
-                $posts->findOne(['_id' => intval($id)])
-            ];
+            $post = $posts->findOne(['_id' => intval($id)]);
+            $result = !empty($post) ? [$post] : [];
         } else {
             $result = $posts->find()->toArray();
         }
