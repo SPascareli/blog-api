@@ -4,15 +4,22 @@ require_once "setup.php";
 Flight::route('GET /posts(/@id)', function($id = null){
     $result = null;
     $posts = Mongo::instance()->blog->posts;
-
+    
     if ($id) {
-        $result = $posts->findOne(['_id' => $id]);
+        $result = $posts->findOne(['_id' => intval($id)]);
+        if ($result) {
+            $users = Mongo::instance()->blog->users;
+            $comments = Mongo::instance()->blog->comments;
+
+            $result['author'] = $users->findOne(['_id' => $result['userId']]);
+            $result['comments'] = $comments->find(['postId' => $result['_id']])->toArray();
+        }
     } else {
         $result = $posts->find()->toArray();
     }
 
     if (is_null($result)) {
-        Flight::halt(404, "The post was not found");
+        Flight::halt(404, "The post $id was not found");
     }
     Flight::json($result);
 });
@@ -24,7 +31,7 @@ Flight::route('POST /posts', function(){
 
     try {
         $insertResult = $posts->insertOne([
-            "_id"=>$rawData['id'],
+            "_id"=>intval($rawData['id']),
             "userId"=>$rawData['userId'],
             "title"=>$rawData['title'],
             "body"=>$rawData['body'],
