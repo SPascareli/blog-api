@@ -6,10 +6,15 @@ services:
     build:
       context: .
       dockerfile: Dockerfile-dev
+    environment:
+      - MONGO_HOST=mongodb://mongodb
     ports:
       - "8080:80"
     volumes:
-      - ./:/var/www/html
+      - ./app:/var/www/html/
+      - ./vendor:/var/www/html/vendor
+    depends_on:
+      - mongo
   mongo:
     image: mongo:3-stretch
     container_name: mongodb

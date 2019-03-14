@@ -1,0 +1,19 @@
+#!/bin/sh
+set -e
+
+# first arg is `-f` or `--some-option`
+if [ "${1#-}" != "$1" ]; then
+	set -- apache2-foreground "$@"
+fi
+
+# import the mongo data if it has not been imported before
+if [ ! -f /provisioning/done ]; then
+	# wait a little bit until the mongo server is up
+	sleep 2
+	php -f  /provisioning/import.php posts /provisioning/posts.json
+	php -f  /provisioning/import.php comments /provisioning/comments.json
+	php -f  /provisioning/import.php users /provisioning/users.json
+	touch /provisioning/done
+fi
+
+exec "$@"

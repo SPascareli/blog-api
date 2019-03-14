@@ -3,7 +3,7 @@ require_once "setup.php";
 
 Flight::route('GET /posts(/@id)', function($id = null){
     $result = null;
-    $posts = Mongo::instance()->chat->posts;
+    $posts = Mongo::instance()->blog->posts;
 
     if ($id) {
         $result = $posts->findOne(['_id' => $id]);
@@ -19,7 +19,7 @@ Flight::route('GET /posts(/@id)', function($id = null){
 
 Flight::route('POST /posts', function(){
     $result = null;
-    $posts = Mongo::instance()->chat->posts;
+    $posts = Mongo::instance()->blog->posts;
     $rawData = Flight::request()->data;
 
     try {
